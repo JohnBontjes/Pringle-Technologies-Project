@@ -9,5 +9,7 @@ Develop a Web Application using .NET (C#), MVC Framework, SQL Server Express to 
 It should have the following,
 
 •	Tables in SQL Server Express for Customer and their Open Hours
+
 •	WebAPI to perform CRUD (Create, Read, Update and Delete) operations on the Customer and their Open Hours. At a minimum, you will need to create Read API to support the front end.
+
 •	Web front end displaying the information using the WebAPI.
