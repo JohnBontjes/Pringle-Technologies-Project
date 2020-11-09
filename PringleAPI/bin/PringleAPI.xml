@@ -481,34 +481,48 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:PringleAPI.Controllers.CustomerController.Add(PringleAPI.Models.SumInput)">
+        <member name="M:PringleAPI.Controllers.CustomerController.GetAllMatchingCustomers(System.String)">
             <summary>
-            add 2 numbers
+            Get a list of customers matching search
             </summary>
-            <param name="inputs">Inputs to the addition</param>
-            <returns>
-            sum of integers from the request.
-            </returns>
+            <param name="search">[Optional] String that all customer names in the response list must contain</param>
+            <returns>A list of objects containing customer details</returns>
         </member>
-        <member name="M:PringleAPI.Exceptions.BadRequestException.#ctor(System.String)">
+        <member name="M:PringleAPI.Controllers.CustomerController.SpecificSearch(PringleAPI.Models.CustomerSearch)">
             <summary>
-            Exception to throw when the user makes a bad request
+            Search for a customer based on more specific criteria than a string the name contains
             </summary>
-            <param name="message">message to send back to the user</param>
+            <param name="searchParams">The parameters to match when doing the search</param>
+            <returns>A list of objects containing customer's details</returns>
         </member>
-        <member name="T:PringleAPI.Models.SumInput">
+        <member name="T:PringleAPI.Models.CustomerSearch">
             <summary>
-            a pair of integers to be summed
-            </summary>
-        </member>
-        <member name="P:PringleAPI.Models.SumInput.x">
-            <summary>
-            integer to be summed
+            Request Body for designating search parameters
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.SumInput.y">
+        <member name="P:PringleAPI.Models.CustomerSearch.Name">
             <summary>
-            integer 2 to be summed
+            Name of the restaurant, normal search string
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.CustomerSearch.City">
+            <summary>
+            City the restaurant is in, normal search string
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.CustomerSearch.State">
+            <summary>
+            2 letter abbreviation of the state the restaurant is in, exact matching
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.CustomerSearch.Country">
+            <summary>
+            3 letter country code of the country the restaurant is in, exact matching
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.CustomerSearch.Zipcode">
+            <summary>
+            5 digit zipcode the restaurant is in, exact matching
             </summary>
         </member>
     </members>
