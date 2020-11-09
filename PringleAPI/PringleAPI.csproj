@@ -405,10 +405,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CustomerModel.cs" />
-    <Compile Include="Models\CustomerSearch.cs" />
-    <Compile Include="Models\DeleteInfo.cs" />
-    <Compile Include="Models\NewCustomer.cs" />
-    <Compile Include="Models\TimeUpdate.cs" />
+    <Compile Include="Models\CustomerSearchDTO.cs" />
+    <Compile Include="Models\DeleteInfoDTO.cs" />
+    <Compile Include="Models\NewCustomerDTO.cs" />
+    <Compile Include="Models\TimeUpdateDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

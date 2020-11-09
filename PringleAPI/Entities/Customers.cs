@@ -7,11 +7,12 @@ namespace PringleAPI.Entities
     public partial class Customers
     {
         public Customers(){}
-        public Customers(NewCustomer customer, Guid apikey)
+        public Customers(NewCustomerDTO customer, Guid apikey)
         {
             Key = apikey.ToString();
             Name = customer.Name;
             Address = customer.Address;
+            Address2 = customer.Address2;
             City = customer.City;
             State = customer.State;
             Country = customer.Country;
@@ -23,6 +24,7 @@ namespace PringleAPI.Entities
         public string Key { get; set; }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }

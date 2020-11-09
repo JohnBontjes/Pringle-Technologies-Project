@@ -481,6 +481,11 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:PringleAPI.Controllers.CustomerController">
+            <summary>
+            Interact with the customer data in the system
+            </summary>
+        </member>
         <member name="M:PringleAPI.Controllers.CustomerController.GetAllMatchingCustomers(System.String)">
             <summary>
             Get a list of customers matching search
@@ -509,11 +514,11 @@
             <param name="updates"> Request body containing api key and updated times </param>
             <returns>Entire customer record including updated times</returns>
         </member>
-        <member name="M:PringleAPI.Controllers.CustomerController.DeleteCustomer(System.Guid)">
+        <member name="M:PringleAPI.Controllers.CustomerController.DeleteCustomer(PringleAPI.Models.DeleteInfo)">
             <summary>
             Delete the customer information corresponding to the api key given
             </summary>
-            <param name="apikey">api key for the customer to be deleted</param>
+            <param name="toBeDeleted">Object containing the api-key for the customer record to be deleted</param>
             <returns>Response Code 200 </returns>
         </member>
         <member name="T:PringleAPI.Models.CustomerSearch">
@@ -546,6 +551,17 @@
             5 digit zipcode the restaurant is in, exact matching
             </summary>
         </member>
+        <member name="T:PringleAPI.Models.DeleteInfo">
+            <summary>
+            Object containing information required to delete a customer record
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.DeleteInfo.ApiKey">
+            <summary>
+            Api-Key corresponding to the recored to be removed
+            Customer should have this and be keeping it secret
+            </summary>
+        </member>
         <member name="T:PringleAPI.Models.NewCustomer">
             <summary>
             Information required to add a customer to the system
@@ -559,6 +575,11 @@
         <member name="P:PringleAPI.Models.NewCustomer.Address">
             <summary>
             Street address of the customer's restaurant
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.Address2">
+            <summary>
+            Street address line 2 of the customer's restaurant
             </summary>
         </member>
         <member name="P:PringleAPI.Models.NewCustomer.City">

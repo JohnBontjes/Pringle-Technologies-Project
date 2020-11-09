@@ -9,7 +9,7 @@ namespace PringleAPI.Models
     /// <summary>
     /// Object containing information required to delete a customer record
     /// </summary>
-    public class DeleteInfo
+    public class DeleteInfoDTO
     {
         /// <summary>
         /// Api-Key corresponding to the recored to be removed

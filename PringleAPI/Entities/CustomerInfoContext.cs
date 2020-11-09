@@ -38,6 +38,10 @@ namespace PringleAPI.Entities
                     .IsRequired()
                     .HasMaxLength(100);
 
+                entity.Property(e => e.Address2)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
                 entity.Property(e => e.City)
                     .IsRequired()
                     .HasMaxLength(50);

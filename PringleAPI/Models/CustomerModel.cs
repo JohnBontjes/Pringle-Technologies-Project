@@ -14,6 +14,7 @@ namespace PringleAPI.Models
         {
             Name = customer.Name;
             Address = customer.Address;
+            Address2 = customer.Address2;
             City = customer.City;
             State = customer.State;
             Country = customer.Country;
@@ -28,6 +29,7 @@ namespace PringleAPI.Models
         }
         public string Name { get; set; }
         public string Address { get; set; }
+        public string Address2 { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }

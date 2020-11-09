@@ -9,7 +9,7 @@ namespace PringleAPI.Models
     /// <summary>
     /// Information required to add a customer to the system
     /// </summary>
-    public class NewCustomer
+    public class NewCustomerDTO
     {
         /// <summary>
         /// Name of the customer's restaurant
@@ -21,6 +21,10 @@ namespace PringleAPI.Models
         /// </summary>
         [Required]
         public string Address { get; set; }
+        /// <summary>
+        /// Street address line 2 of the customer's restaurant
+        /// </summary>
+        public string Address2 { get; set; }
         /// <summary>
         /// City for the Address field
         /// </summary>

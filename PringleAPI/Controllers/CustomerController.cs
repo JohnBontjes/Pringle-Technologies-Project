@@ -34,9 +34,11 @@ namespace PringleAPI.Controllers
             {
                 try
                 {
+                    // get all customers with name containing provided search term
                     var result = db.Customers.Where(i => i.Name.Contains(search)).Select(i => new CustomerModel(i));
                     return Ok(result.ToList());
-                }catch(Exception e)
+                }
+                catch(Exception e)
                 {
 #if DEBUG
                     return InternalServerError(e);
@@ -52,7 +54,7 @@ namespace PringleAPI.Controllers
         /// <param name="searchParams">The parameters to match when doing the search</param>
         /// <returns>A list of objects containing customer's details</returns>
         [HttpPost]
-        public IHttpActionResult SpecificSearch([FromBody] CustomerSearch searchParams)
+        public IHttpActionResult SpecificSearch([FromBody] CustomerSearchDTO searchParams)
         {
             if (!ModelState.IsValid)
             {
@@ -64,6 +66,8 @@ namespace PringleAPI.Controllers
                 try
                 {
                     IQueryable<Customers> filter = db.Customers;
+                    // go through all possible params the user may have included as a search term
+                    // if the param was provided, use it to filter out the possible results
                     if(searchParams.Name != null)
                     {
                         filter = filter.Where(i => i.Name.Contains(searchParams.Name));
@@ -85,7 +89,7 @@ namespace PringleAPI.Controllers
                         filter = filter.Where(i => String.Compare(i.Zipcode, searchParams.Zipcode) == 0);
                     }
 
-
+                    // map filtered results to CustomerModel objects to hide the api key from the output
                     var mapped = filter.Select(i => new CustomerModel(i)).AsQueryable();
                     return Ok(mapped.ToList());
                 } catch(Exception e)
@@ -104,13 +108,14 @@ namespace PringleAPI.Controllers
         /// <param name="customerInfo">Request body containing all necessary information to add the customer to the system</param>
         /// <returns>Object containing api-key</returns>
         [HttpPut]
-        public IHttpActionResult CreateCustomer([FromBody] NewCustomer customerInfo)
+        public IHttpActionResult CreateCustomer([FromBody] NewCustomerDTO customerInfo)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
             int changes = 0;
+            // api key is a guid to make sure that they are unique and not easy to brute force
             var apikey = Guid.NewGuid();
             using (var db = new CustomerInfoContext())
             {
@@ -143,7 +148,7 @@ namespace PringleAPI.Controllers
         /// <param name="updates"> Request body containing api key and updated times </param>
         /// <returns>Entire customer record including updated times</returns>
         [HttpPatch]
-        public IHttpActionResult UpdateTimes([FromBody] TimeUpdate updates)
+        public IHttpActionResult UpdateTimes([FromBody] TimeUpdateDTO updates)
         {
             if (!ModelState.IsValid)
             {
@@ -154,9 +159,12 @@ namespace PringleAPI.Controllers
             {
                 try
                 {
+                    // get customer matching apikey provided
                     var customer = db.Customers.First(i => i.Key == updates.ApiKey.ToString());
+                    // update times
                     customer.OpenTime = updates.OpenTime;
                     customer.CloseTime = updates.CloseTime;
+                    // save updates to db
                     changes = db.SaveChanges();
                     if (changes > 0)
                     {
@@ -184,7 +192,7 @@ namespace PringleAPI.Controllers
         /// <param name="toBeDeleted">Object containing the api-key for the customer record to be deleted</param>
         /// <returns>Response Code 200 </returns>
         [HttpDelete]
-        public IHttpActionResult DeleteCustomer([FromBody] DeleteInfo toBeDeleted)
+        public IHttpActionResult DeleteCustomer([FromBody] DeleteInfoDTO toBeDeleted)
         {
             if (!ModelState.IsValid)
             {
@@ -195,8 +203,11 @@ namespace PringleAPI.Controllers
             {
                 try
                 {
+                    // find the entry with the specified key
                     var toDelete = db.Customers.Where(i => i.Key == toBeDeleted.ApiKey.ToString()).First();
+                    // delete entry
                     db.Customers.Remove(toDelete);
+                    // save
                     changes = db.SaveChanges();
                 }
                 catch (Exception e)

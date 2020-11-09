@@ -9,7 +9,7 @@ namespace PringleAPI.Models
     /// <summary>
     /// Body of the request to update open and closing times for customer
     /// </summary>
-    public class TimeUpdate
+    public class TimeUpdateDTO
     {
         /// <summary>
         /// Customer's ApiKey

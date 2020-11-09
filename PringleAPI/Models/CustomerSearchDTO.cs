@@ -9,7 +9,7 @@ namespace PringleAPI.Models
     /// <summary>
     /// Request Body for designating search parameters
     /// </summary>
-    public class CustomerSearch
+    public class CustomerSearchDTO
     {
         /// <summary>
         /// Name of the restaurant, normal search string
