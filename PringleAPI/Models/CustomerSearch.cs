@@ -32,8 +32,8 @@ namespace PringleAPI.Models
         /// <summary>
         /// 5 digit zipcode the restaurant is in, exact matching
         /// </summary>
-        [Range(10000, 99999)]
-        public int? Zipcode { get; set; }
+        [MinLength(5), MaxLength(5)]
+        public string Zipcode { get; set; }
         
     }
 }

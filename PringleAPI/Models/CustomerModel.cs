@@ -6,6 +6,8 @@ using System.Web;
 
 namespace PringleAPI.Models
 {
+    // class to map to when preparing to send data to user
+    // it's essentially the Customers entity without the Key field
     public class CustomerModel
     {
         public CustomerModel(Customers customer)
@@ -19,6 +21,9 @@ namespace PringleAPI.Models
             Phone = customer.Phone;
             OpenTime = customer.OpenTime;
             CloseTime = customer.CloseTime;
+        }
+        public CustomerModel()
+        {
 
         }
         public string Name { get; set; }
@@ -26,7 +31,7 @@ namespace PringleAPI.Models
         public string City { get; set; }
         public string State { get; set; }
         public string Country { get; set; }
-        public int Zipcode { get; set; }
+        public string Zipcode { get; set; }
         public string Phone { get; set; }
         public TimeSpan OpenTime { get; set; }
         public TimeSpan CloseTime { get; set; }

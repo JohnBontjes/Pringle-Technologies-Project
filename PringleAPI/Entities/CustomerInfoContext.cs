@@ -58,6 +58,10 @@ namespace PringleAPI.Entities
                 entity.Property(e => e.State)
                     .HasMaxLength(10)
                     .IsFixedLength();
+
+                entity.Property(e => e.Zipcode)
+                    .HasMaxLength(5)
+                    .IsFixedLength();
             });
 
             

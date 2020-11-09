@@ -13,6 +13,9 @@ using System.Web.Http;
 
 namespace PringleAPI.Controllers
 {
+    /// <summary>
+    /// Interact with the customer data in the system
+    /// </summary>
     public class CustomerController : ApiController
     {
         /// <summary>
@@ -79,16 +82,12 @@ namespace PringleAPI.Controllers
                     }
                     if (searchParams.Zipcode != null)
                     {
-                        filter = filter.Where(i => i.Zipcode == searchParams.Zipcode);
+                        filter = filter.Where(i => String.Compare(i.Zipcode, searchParams.Zipcode) == 0);
                     }
 
 
                     var mapped = filter.Select(i => new CustomerModel(i)).AsQueryable();
-                    return Ok(new
-                    {
-                        received = searchParams,
-                        result = mapped.ToList()
-                    });
+                    return Ok(mapped.ToList());
                 } catch(Exception e)
                 {
 #if DEBUG
@@ -98,6 +97,123 @@ namespace PringleAPI.Controllers
 #endif
                 }
             }
+        }
+        /// <summary>
+        /// Add a new customer to the system
+        /// </summary>
+        /// <param name="customerInfo">Request body containing all necessary information to add the customer to the system</param>
+        /// <returns>Object containing api-key</returns>
+        [HttpPut]
+        public IHttpActionResult CreateCustomer([FromBody] NewCustomer customerInfo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int changes = 0;
+            var apikey = Guid.NewGuid();
+            using (var db = new CustomerInfoContext())
+            {
+                try
+                {
+                    db.Customers.Add(new Customers(customerInfo, apikey));
+                    changes = db.SaveChanges();
+                }
+                catch(Exception e)
+                {
+#if DEBUG
+                    return InternalServerError(e);
+#else
+                    return InternalServerError();
+#endif
+                }
+            }
+            if (changes > 0)
+            {
+                return Ok(new { api_key = apikey });
+            }
+            else
+            {
+                return BadRequest("Oops! Something went wrong!");
+            }
+        }
+        /// <summary>
+        /// Update opening and closing times of your restaurant
+        /// </summary>
+        /// <param name="updates"> Request body containing api key and updated times </param>
+        /// <returns>Entire customer record including updated times</returns>
+        [HttpPatch]
+        public IHttpActionResult UpdateTimes([FromBody] TimeUpdate updates)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int changes = 0;
+            using (var db = new CustomerInfoContext())
+            {
+                try
+                {
+                    var customer = db.Customers.First(i => i.Key == updates.ApiKey.ToString());
+                    customer.OpenTime = updates.OpenTime;
+                    customer.CloseTime = updates.CloseTime;
+                    changes = db.SaveChanges();
+                    if (changes > 0)
+                    {
+                        return Ok(new CustomerModel(customer));
+                    }
+                    else
+                    {
+                        return BadRequest("Oops! Nothing got changed!");
+                    }
+                }
+                catch (Exception e)
+                {
+#if DEBUG
+                    return InternalServerError(e);
+#else
+                    return InternalServerError();
+#endif
+                }
+            }
+        }
+
+        /// <summary>
+        /// Delete the customer information corresponding to the api key given
+        /// </summary>
+        /// <param name="toBeDeleted">Object containing the api-key for the customer record to be deleted</param>
+        /// <returns>Response Code 200 </returns>
+        [HttpDelete]
+        public IHttpActionResult DeleteCustomer([FromBody] DeleteInfo toBeDeleted)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            int changes = 0;
+            using (var db = new CustomerInfoContext())
+            {
+                try
+                {
+                    var toDelete = db.Customers.Where(i => i.Key == toBeDeleted.ApiKey.ToString()).First();
+                    db.Customers.Remove(toDelete);
+                    changes = db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+#if DEBUG
+                    return InternalServerError(e);
+#else
+                    return InternalServerError();
+#endif
+                }
+            }
+            // database change failed
+            if(changes == 0)
+            {
+                return BadRequest();
+            }
+            return Ok();
         }
 
     }

@@ -495,6 +495,27 @@
             <param name="searchParams">The parameters to match when doing the search</param>
             <returns>A list of objects containing customer's details</returns>
         </member>
+        <member name="M:PringleAPI.Controllers.CustomerController.CreateCustomer(PringleAPI.Models.NewCustomer)">
+            <summary>
+            Add a new customer to the system
+            </summary>
+            <param name="customerInfo">Request body containing all necessary information to add the customer to the system</param>
+            <returns>Object containing api-key</returns>
+        </member>
+        <member name="M:PringleAPI.Controllers.CustomerController.UpdateTimes(PringleAPI.Models.TimeUpdate)">
+            <summary>
+            Update opening and closing times of your restaurant
+            </summary>
+            <param name="updates"> Request body containing api key and updated times </param>
+            <returns>Entire customer record including updated times</returns>
+        </member>
+        <member name="M:PringleAPI.Controllers.CustomerController.DeleteCustomer(System.Guid)">
+            <summary>
+            Delete the customer information corresponding to the api key given
+            </summary>
+            <param name="apikey">api key for the customer to be deleted</param>
+            <returns>Response Code 200 </returns>
+        </member>
         <member name="T:PringleAPI.Models.CustomerSearch">
             <summary>
             Request Body for designating search parameters
@@ -523,6 +544,77 @@
         <member name="P:PringleAPI.Models.CustomerSearch.Zipcode">
             <summary>
             5 digit zipcode the restaurant is in, exact matching
+            </summary>
+        </member>
+        <member name="T:PringleAPI.Models.NewCustomer">
+            <summary>
+            Information required to add a customer to the system
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.Name">
+            <summary>
+            Name of the customer's restaurant
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.Address">
+            <summary>
+            Street address of the customer's restaurant
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.City">
+            <summary>
+            City for the Address field
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.State">
+            <summary>
+            State for the Address field
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.Country">
+            <summary>
+            Country for the Address field
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.Zipcode">
+            <summary>
+             5 digit Zipcode for the Address field
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.Phone">
+            <summary>
+            Phone number of the customer - Just the digits, no punctuation or parenthesis.
+            ex: "0123456789"
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.OpenTime">
+            <summary>
+            Time the customer's restaurant opens
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.NewCustomer.CloseTime">
+            <summary>
+            Time the customer's restaurant closes
+            </summary>
+        </member>
+        <member name="T:PringleAPI.Models.TimeUpdate">
+            <summary>
+            Body of the request to update open and closing times for customer
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.TimeUpdate.ApiKey">
+            <summary>
+            Customer's ApiKey
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.TimeUpdate.OpenTime">
+            <summary>
+            Time the customer's restaurant opens
+            </summary>
+        </member>
+        <member name="P:PringleAPI.Models.TimeUpdate.CloseTime">
+            <summary>
+            Time the customer's restaurant closes
             </summary>
         </member>
     </members>
