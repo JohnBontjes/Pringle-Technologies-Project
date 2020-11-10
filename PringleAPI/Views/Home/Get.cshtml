@@ -1,0 +1,55 @@
+﻿<h2>GET Example</h2>
+<label for="query">Search Term: </label>
+<input type="text" name="query" id="query" value="" />
+<h3>Search Results:</h3>
+<ul id="resultList">
+    
+</ul>
+
+@section scripts {
+    <script>
+        function init() {
+            console.log("hello world");
+            $("#query").on("keyup", search);
+            search();
+        }
+        function search() {
+            let query = $("#query").val();
+            let uriquery = encodeURIComponent(query);
+            apicall("GET", `search=${uriquery}`, null, { success: update });
+        }
+
+        function openNow(opentime, closetime) {
+            let open = new Date();
+            open.setHours(...opentime.trim().split(":"));
+            let close = new Date();
+            close.setHours(...closetime.trim().split(":"));
+            let now = new Date();
+            if (open > close) {
+                if (now < close) {
+                    return true;
+                }
+                close.setDate(close.getDate() + 1);
+            }
+            if (now > open && now < close) {
+                return true;
+            }
+            return false;
+        }
+
+        function update(response) {
+            console.log(response);
+            let list = $("#resultList");
+            list.html("");
+            for (let customer of response) {
+                list.append(createLi(customer));
+            }
+        }
+
+        function createLi(customer) {
+            let openString = openNow(customer.OpenTime, customer.CloseTime) ? "(Open)" : "(Closed)"
+            return $("<li></li>").html(`<b>${customer.Name}</b> ${openString}`);
+        }
+        $(document).ready(init);
+    </script>
+}

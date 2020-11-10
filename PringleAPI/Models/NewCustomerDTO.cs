@@ -24,7 +24,7 @@ namespace PringleAPI.Models
         /// <summary>
         /// Street address line 2 of the customer's restaurant
         /// </summary>
-        public string Address2 { get; set; }
+        public string Address2 { get; set; } = "";
         /// <summary>
         /// City for the Address field
         /// </summary>

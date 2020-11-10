@@ -26,16 +26,21 @@ namespace PringleAPI.Controllers
         [HttpGet]
         public IHttpActionResult GetAllMatchingCustomers([FromUri] String search = "")
         {
-            if (!ModelState.IsValid)
+            
+            /*if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
+            }*/
+            if(search == null)
+            {
+                search = "";
             }
             using (var db = new CustomerInfoContext())
             {
                 try
                 {
                     // get all customers with name containing provided search term
-                    var result = db.Customers.Where(i => i.Name.Contains(search)).Select(i => new CustomerModel(i));
+                    var result = db.Customers.Where(i => i.Name.Contains(search)).Select(i => new CustomerModel(i)).AsQueryable();
                     return Ok(result.ToList());
                 }
                 catch(Exception e)

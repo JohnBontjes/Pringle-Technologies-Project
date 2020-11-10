@@ -493,147 +493,147 @@
             <param name="search">[Optional] String that all customer names in the response list must contain</param>
             <returns>A list of objects containing customer details</returns>
         </member>
-        <member name="M:PringleAPI.Controllers.CustomerController.SpecificSearch(PringleAPI.Models.CustomerSearch)">
+        <member name="M:PringleAPI.Controllers.CustomerController.SpecificSearch(PringleAPI.Models.CustomerSearchDTO)">
             <summary>
             Search for a customer based on more specific criteria than a string the name contains
             </summary>
             <param name="searchParams">The parameters to match when doing the search</param>
             <returns>A list of objects containing customer's details</returns>
         </member>
-        <member name="M:PringleAPI.Controllers.CustomerController.CreateCustomer(PringleAPI.Models.NewCustomer)">
+        <member name="M:PringleAPI.Controllers.CustomerController.CreateCustomer(PringleAPI.Models.NewCustomerDTO)">
             <summary>
             Add a new customer to the system
             </summary>
             <param name="customerInfo">Request body containing all necessary information to add the customer to the system</param>
             <returns>Object containing api-key</returns>
         </member>
-        <member name="M:PringleAPI.Controllers.CustomerController.UpdateTimes(PringleAPI.Models.TimeUpdate)">
+        <member name="M:PringleAPI.Controllers.CustomerController.UpdateTimes(PringleAPI.Models.TimeUpdateDTO)">
             <summary>
             Update opening and closing times of your restaurant
             </summary>
             <param name="updates"> Request body containing api key and updated times </param>
             <returns>Entire customer record including updated times</returns>
         </member>
-        <member name="M:PringleAPI.Controllers.CustomerController.DeleteCustomer(PringleAPI.Models.DeleteInfo)">
+        <member name="M:PringleAPI.Controllers.CustomerController.DeleteCustomer(PringleAPI.Models.DeleteInfoDTO)">
             <summary>
             Delete the customer information corresponding to the api key given
             </summary>
             <param name="toBeDeleted">Object containing the api-key for the customer record to be deleted</param>
             <returns>Response Code 200 </returns>
         </member>
-        <member name="T:PringleAPI.Models.CustomerSearch">
+        <member name="T:PringleAPI.Models.CustomerSearchDTO">
             <summary>
             Request Body for designating search parameters
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.CustomerSearch.Name">
+        <member name="P:PringleAPI.Models.CustomerSearchDTO.Name">
             <summary>
             Name of the restaurant, normal search string
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.CustomerSearch.City">
+        <member name="P:PringleAPI.Models.CustomerSearchDTO.City">
             <summary>
             City the restaurant is in, normal search string
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.CustomerSearch.State">
+        <member name="P:PringleAPI.Models.CustomerSearchDTO.State">
             <summary>
             2 letter abbreviation of the state the restaurant is in, exact matching
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.CustomerSearch.Country">
+        <member name="P:PringleAPI.Models.CustomerSearchDTO.Country">
             <summary>
             3 letter country code of the country the restaurant is in, exact matching
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.CustomerSearch.Zipcode">
+        <member name="P:PringleAPI.Models.CustomerSearchDTO.Zipcode">
             <summary>
             5 digit zipcode the restaurant is in, exact matching
             </summary>
         </member>
-        <member name="T:PringleAPI.Models.DeleteInfo">
+        <member name="T:PringleAPI.Models.DeleteInfoDTO">
             <summary>
             Object containing information required to delete a customer record
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.DeleteInfo.ApiKey">
+        <member name="P:PringleAPI.Models.DeleteInfoDTO.ApiKey">
             <summary>
             Api-Key corresponding to the recored to be removed
             Customer should have this and be keeping it secret
             </summary>
         </member>
-        <member name="T:PringleAPI.Models.NewCustomer">
+        <member name="T:PringleAPI.Models.NewCustomerDTO">
             <summary>
             Information required to add a customer to the system
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.Name">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.Name">
             <summary>
             Name of the customer's restaurant
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.Address">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.Address">
             <summary>
             Street address of the customer's restaurant
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.Address2">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.Address2">
             <summary>
             Street address line 2 of the customer's restaurant
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.City">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.City">
             <summary>
             City for the Address field
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.State">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.State">
             <summary>
             State for the Address field
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.Country">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.Country">
             <summary>
             Country for the Address field
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.Zipcode">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.Zipcode">
             <summary>
              5 digit Zipcode for the Address field
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.Phone">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.Phone">
             <summary>
             Phone number of the customer - Just the digits, no punctuation or parenthesis.
             ex: "0123456789"
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.OpenTime">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.OpenTime">
             <summary>
             Time the customer's restaurant opens
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.NewCustomer.CloseTime">
+        <member name="P:PringleAPI.Models.NewCustomerDTO.CloseTime">
             <summary>
             Time the customer's restaurant closes
             </summary>
         </member>
-        <member name="T:PringleAPI.Models.TimeUpdate">
+        <member name="T:PringleAPI.Models.TimeUpdateDTO">
             <summary>
             Body of the request to update open and closing times for customer
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.TimeUpdate.ApiKey">
+        <member name="P:PringleAPI.Models.TimeUpdateDTO.ApiKey">
             <summary>
             Customer's ApiKey
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.TimeUpdate.OpenTime">
+        <member name="P:PringleAPI.Models.TimeUpdateDTO.OpenTime">
             <summary>
             Time the customer's restaurant opens
             </summary>
         </member>
-        <member name="P:PringleAPI.Models.TimeUpdate.CloseTime">
+        <member name="P:PringleAPI.Models.TimeUpdateDTO.CloseTime">
             <summary>
             Time the customer's restaurant closes
             </summary>
