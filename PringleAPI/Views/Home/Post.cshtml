@@ -1,1 +1,81 @@
 ﻿<h2>POST Example</h2>
+<p>Fill in any combination of the form below to see a filtered list of matching customers</p>
+<table>
+    <tbody>
+        <tr><td><label for="name">Name</label></td><td><input type="text" name="name" id="name" /></td></tr>
+        <tr><td><label for="city">City</label></td><td><input type="text" name="city" id="city" /></td></tr>
+        <tr><td><label for="state">State (2 letter abbrev.)</label></td><td><input type="text" name="state" id="state" /></td></tr>
+        <tr><td><label for="country">Country (3 letter abbrev.)</label></td><td><input type="text" name="country" id="country" /></td></tr>
+        <tr><td><label for="zipcode">Zipcode</label></td><td><input type="text" name="zipcode" id="zipcode" /></td></tr>
+        <tr>
+            <td><button id="search">Search</button></td>
+            <td><button id="clear">Clear Form</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<pre id="status"></pre>
+<pre id="response"></pre>
+
+<ul id="results">
+
+</ul>
+
+@section scripts{
+    <script>
+        function init() {
+            $("#search").on("click", runSearch);
+            $("#clear").on("click", (ev) => {
+                $("input").val("");
+            });
+            $("input").on("keydown", (ev) => {
+                if (ev.which == 13) {
+                    runSearch();
+                }
+            });
+        }
+
+        function runSearch() {
+            let params = {
+                name: $("#name").val(),
+                city: $("#city").val(),
+                state: $("#state").val(),
+                country: $("#country").val(),
+                zipcode: $("#zipcode").val()
+            }
+            console.log(params);
+            apicall("POST", null, params, { success: success, error: errors });
+        }
+
+        function errors(jqxhr, status, error) {
+            console.log(jqxhr, status, error);
+            $("#status").html(`Error: ${error}`);
+            $("#response").html(`Message: ${JSON.stringify(jqxhr.responseJSON, null, 2)}`);
+            $("#results").html("");
+        }
+
+        function success(data, status, jqxhr) {
+            console.log("successful");
+            $("#status").html(`Status: ${status}`);
+            $("#response").html("");
+            showList(data);
+        }
+
+        function showList(results) {
+            let list = $("#results");
+            list.html("");
+            for (let result of results) {
+                list.append(createLi(result));
+            }
+        }
+
+        function createLi(customer) {
+            let li = $("<li></li>");
+            li.html(`<b>${customer.Name}</b> | Phone: ${customer.Phone}`);
+            return li;
+        }
+
+
+        $(document).ready(init);
+    </script>
+}

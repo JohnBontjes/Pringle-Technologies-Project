@@ -1,3 +1,71 @@
-﻿
-<h2>Put</h2>
+﻿<h2>PUT Example</h2>
+<p>Fill out form below to create a new customer entry.</p>
+<table>
+    <tbody>
+        <tr><td><label for="name">Name</label></td><td><input type="text" name="name" id="name" /></td></tr>
+        <tr><td><label for="address">Address Line 1</label></td><td><input type="text" name="address" id="address" /></td></tr>
+        <tr><td><label for="address2">Address Line 2</label></td><td><input type="text" name="address2" id="address2" /></td></tr>
+        <tr><td><label for="city">City</label></td><td><input type="text" name="city" id="city" /></td></tr>
+        <tr><td><label for="state">State (2 letter abbrev.)</label></td><td><input type="text" name="state" id="state" /></td></tr>
+        <tr><td><label for="country">Country (3 letter abbrev.)</label></td><td><input type="text" name="country" id="country" /></td></tr>
+        <tr><td><label for="zipcode">Zipcode</label></td><td><input type="text" name="zipcode" id="zipcode" /></td></tr>
+        <tr><td><label for="phone">Phone (Just numbers no punctuation)</label></td><td><input type="text" name="phone" id="phone" /></td></tr>
+        <tr><td><label for="open">Open Time (HH:MM:SS.SSSSS)</label></td><td><input type="text" name="open" id="open" /></td></tr>
+        <tr><td><label for="close">Close Time (HH:MM:SS.SSSSS)</label></td><td><input type="text" name="close" id="close" /></td></tr>
+        <tr>
+            <td><button id="create">Create Customer</button></td>
+            <td><button id="clear">Clear Form</button></td>
+        </tr>
+    </tbody>
+</table>
 
+<pre id="status"></pre>
+<pre id="response"></pre>
+
+@section scripts{
+    <script>
+        function init() {
+            $("#create").on("click", createCustomer);
+            $("#clear").on("click", (ev) => {
+                $("input").val("");
+            });
+            $("input").on("keydown", (ev) => {
+                if (ev.which == 13) {
+
+                    createCustomer();
+                }
+            });
+        }
+
+        function createCustomer() {
+            let params = {
+                name: $("#name").val(),
+                address: $("#address").val(),
+                address2: $("#address2").val(),
+                city: $("#city").val(),
+                state: $("#state").val(),
+                country: $("#country").val(),
+                zipcode: $("#zipcode").val(),
+                phone: $("#phone").val(),
+                CloseTime: $("#close").val(),
+                OpenTime: $("#open").val()
+            }
+            console.log(params);
+            apicall("PUT", null, params, { success: success, error: errors });
+        }
+
+        function errors(jqxhr, status, error) {
+            console.log(jqxhr, status, error);
+            $("#status").html(`Error: ${error}`);
+            $("#response").html(`Message: ${JSON.stringify(jqxhr.responseJSON, null, 2)}`);
+        }
+
+        function success(data, status, jqxhr) {
+            console.log("successful");
+            $("#status").html(`Status: ${status}`);
+            $("#response").html(`Message: ${JSON.stringify(data, null, 2)}`);
+        }
+
+        $(document).ready(init);
+    </script>
+}

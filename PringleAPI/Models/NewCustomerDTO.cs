@@ -53,6 +53,7 @@ namespace PringleAPI.Models
         /// ex: "0123456789"
         /// </summary>
         [Required]
+        [RegularExpression("^[0-9]+$")]
         public string Phone { get; set; }
         /// <summary>
         /// Time the customer's restaurant opens

@@ -1,1 +1,57 @@
-﻿<h2>Patch</h2>
+﻿<h2>PATCH Example</h2>
+<p>Fill out the form below to edit the hours of the customer associated with the provided api-key</p>
+<table>
+    <tbody>
+        <tr><td><label for="key">Api-Key</label></td><td><input type="text" name="key" id="key" /></td></tr>
+        <tr><td><label for="open">Open Time (HH:MM:SS.SSSSS)</label></td><td><input type="text" name="open" id="open" /></td></tr>
+        <tr><td><label for="close">Close Time (HH:MM:SS.SSSSS)</label></td><td><input type="text" name="close" id="close" /></td></tr>
+        <tr>
+            <td><button id="update">Update Times</button></td>
+            <td><button id="clear">Clear Form</button></td>
+        </tr>
+    </tbody>
+</table>
+
+<pre id="status"></pre>
+<pre id="response"></pre>
+
+@section scripts{
+    <script>
+        function init() {
+            $("#key").css("width", 500);
+            $("#update").on("click", editCustomer);
+            $("#clear").on("click", (ev) => {
+                $("input").val("");
+            });
+            $("input").on("keydown", (ev) => {
+                if (ev.which == 13) {
+                    editCustomer();
+                }
+            });
+        }
+
+        function editCustomer() {
+            let params = {
+                apikey: $("#key").val(),
+                CloseTime: $("#close").val(),
+                OpenTime: $("#open").val()
+            }
+            console.log(params);
+            apicall("PATCH", null, params, { success: success, error: errors });
+        }
+
+        function errors(jqxhr, status, error) {
+            console.log(jqxhr, status, error);
+            $("#status").html(`Error: ${error}`);
+            $("#response").html(`Message: ${JSON.stringify(jqxhr.responseJSON, null, 2)}`);
+        }
+
+        function success(data, status, jqxhr) {
+            console.log("successful");
+            $("#status").html(`Status: ${status}`);
+            $("#response").html(`Message: ${JSON.stringify(data, null, 2)}`);
+        }
+
+        $(document).ready(init);
+    </script>
+}

@@ -1,1 +1,42 @@
 ﻿<h2>Delete</h2>
+<p>Enter a valid api key to delete the associated customer information</p>
+<p style="color: red;"><b>Warning: only use if absolutely sure you want to delete data</b></p>
+<label for="key">Api-Key</label>
+<input name="key" id="key" type="text" />
+<button id="delete">Delete</button>
+
+<pre id="status"></pre>
+<pre id="response"></pre>
+
+@section scripts{
+    <script>
+        function init() {
+            $("#key").css("width", 500);
+            $("#delete").on("click", deleteInfo);
+        }
+
+        function deleteInfo (){
+            console.log("deleting");
+            let keystr = $("#key").val();
+            let key = encodeURIComponent(keystr);
+            let params = {
+                ApiKey: key
+            }
+            apicall("DELETE", null, params, { success: success, error: errors });
+        }
+
+        function errors(jqxhr, status, error) {
+            console.log(jqxhr, status, error);
+            $("#status").html(`Error: ${error}`);
+            $("#response").html(`Message: ${JSON.stringify(jqxhr.responseJSON, null, 2)}`);
+        }
+
+        function success(data, status, jqxhr) {
+            console.log("successful");
+            $("#status").html(`Status: ${status}`);
+            $("#response").html(`Message: ${JSON.stringify(data, null, 2)}`);
+        }
+
+        $(document).ready(init);
+    </script>
+}

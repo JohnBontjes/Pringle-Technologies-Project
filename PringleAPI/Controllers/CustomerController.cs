@@ -229,7 +229,7 @@ namespace PringleAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok();
+            return Ok(new { Message = "Success" });
         }
 
     }
