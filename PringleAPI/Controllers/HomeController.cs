@@ -11,28 +11,33 @@ namespace PringleAPI.Controllers
     {
         public ActionResult Index()
         {
-            //ViewBag.Title = "Home Page";
+            ViewBag.Action = "Home";
 
             return View();
         }
         public ActionResult Get()
         {
+            ViewBag.Action = "Get";
             return View();
         }
         public ActionResult Post()
         {
+            ViewBag.Action = "Post";
             return View();
         }
         public ActionResult Put()
         {
+            ViewBag.Action = "Put";
             return View();
         }
         public ActionResult Patch()
         {
+            ViewBag.Action = "Patch";
             return View();
         }
         public ActionResult Delete()
         {
+            ViewBag.Action = "Delete";
             return View();
         }
     }

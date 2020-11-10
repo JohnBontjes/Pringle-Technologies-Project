@@ -27,12 +27,14 @@ namespace PringleAPI.Areas.HelpPage.Controllers
 
         public ActionResult Index()
         {
+            ViewBag.Action = "Docs";
             ViewBag.DocumentationProvider = Configuration.Services.GetDocumentationProvider();
             return View(Configuration.Services.GetApiExplorer().ApiDescriptions);
         }
 
         public ActionResult Api(string apiId)
         {
+            ViewBag.Action = "Docs";
             if (!String.IsNullOrEmpty(apiId))
             {
                 HelpPageApiModel apiModel = Configuration.GetHelpPageApiModel(apiId);
@@ -47,6 +49,7 @@ namespace PringleAPI.Areas.HelpPage.Controllers
 
         public ActionResult ResourceModel(string modelName)
         {
+            ViewBag.Action = "Docs";
             if (!String.IsNullOrEmpty(modelName))
             {
                 ModelDescriptionGenerator modelDescriptionGenerator = Configuration.GetModelDescriptionGenerator();
